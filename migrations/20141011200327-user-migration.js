@@ -16,9 +16,6 @@ module.exports = {
         password: {
           type: DataTypes.STRING
         },
-        charity: {
-          type: DataTypes.STRING
-        },
         createdAt: {
           type: DataTypes.DATE
         },

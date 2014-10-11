@@ -116,6 +116,8 @@ app.use(function(err, req, res, next) {
     });
 });
 
+var port = 8888;
 
+console.log('Server listening on port ' + port);
 
-app.listen(8888);
+app.listen(port);

@@ -1,16 +1,15 @@
 Obcity-API
 ==========
 
-## Requirements
+## Installation
 
-    sudo npm install -g nodemon
-
+    npm install
 
 ## Database
 
     ./node_modules/.bin/sequelize db:migrate
 
+## Server
 
-## Running
-
+    sudo npm install -g nodemon
     nodemon app.js
