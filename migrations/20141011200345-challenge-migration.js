@@ -16,8 +16,8 @@ module.exports = {
         charity_id: {
           type: DataTypes.INTEGER
         },
-        duration: {
-          type: DataTypes.STRING
+        finishAt: {
+          type: DataTypes.DATE
         },
         createdAt: {
           type: DataTypes.DATE

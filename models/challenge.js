@@ -1,6 +1,6 @@
 module.exports = function(sequelize, DataTypes) {
   var Challenge = sequelize.define("Challenge", {
-    duration: DataTypes.STRING,
+    finishAt: DataTypes.DATE,
   }, {
     classMethods: {
       associate: function(db) {
