@@ -13,9 +13,6 @@ module.exports = {
         user_id: {
           type: DataTypes.INTEGER
         },
-        name: {
-          type: DataTypes.STRING
-        },
         value: {
           type: DataTypes.STRING
         },

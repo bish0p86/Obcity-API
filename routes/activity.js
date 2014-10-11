@@ -5,7 +5,7 @@ var Activity = require('../models').Activity;
 
 router.post('/', function(req, res, next) {
   var data = req.body;
-      data.User = req.user;
+      data.user_id = req.user.id;
 
   Activity.create(data).then(function(activity) {
     return res.json(activity);
