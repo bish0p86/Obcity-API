@@ -13,6 +13,8 @@ router.post('/', function(req, res, next) {
     }
 
     if (!user) {
+      res.status(401);
+
       return res.json({
         error: 'Incorrect credentials'
       });
