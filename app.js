@@ -16,7 +16,8 @@ var activity    = require('./routes/activity'),
     transaction = require('./routes/transaction'),
     user        = require('./routes/user');
 
-var models = require('./models');
+var models = require('./models'),
+    User   = models.User;
 
 var app = express();
 
@@ -31,6 +32,48 @@ app.use(cookieParser());
 app.use(cors({
   origin: '*'
 }));
+
+
+passport.serializeUser(function(user, done) {
+  user = user.toJSON();
+
+  delete user.password;
+
+  done(null, user);
+});
+
+passport.deserializeUser(function(user, done) {
+  done(null, JSON.parse(user));
+});
+
+passport.use(new LocalStrategy(
+  {
+    usernameField: 'username',
+    passwordField: 'password',
+    passReqToCallback: true
+  },
+  function(req, username, password, done) {
+    User.findOne({ username: username }).then(function (user) {
+      if (!user) {
+        return done(null, false);
+      }
+
+      if (!user.verifyPassword(password)) {
+        return done(null, false);
+      }
+
+      done(null, user);
+    }, function(err) {
+      if (err) {
+        return done(err);
+      }
+    });
+  }
+));
+
+// passport
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/activity', activity);
 app.use('/session', session);
@@ -69,27 +112,6 @@ app.use(function(err, req, res, next) {
     });
 });
 
-
-// passport
-passport.use(new LocalStrategy(
-  function(username, password, done) {
-    User.findOne({ username: username }, function (err, user) {
-      if (err) {
-        return done(err);
-      }
-
-      if (!user) {
-        return done(null, false);
-      }
-
-      if (!user.verifyPassword(password)) {
-        return done(null, false);
-      }
-
-      return done(null, user);
-    });
-  }
-));
 
 
 app.listen(8888);

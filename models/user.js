@@ -8,7 +8,12 @@ module.exports = function(sequelize, DataTypes) {
     createdAt: DataTypes.DATE,
     updatedAt: DataTypes.DATE
   }, {
-    classMethods: {}
+    classMethods: {},
+    instanceMethods: {
+      verifyPassword: function(password) {
+        return true;
+      }
+    }
   });
 
   return User;
