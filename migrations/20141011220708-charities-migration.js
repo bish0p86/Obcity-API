@@ -20,9 +20,20 @@ module.exports = {
           type: DataTypes.DATE
         }
       }
-    );
+    ).then(function () {
+      var charities = [
+        'British Heart Foundation',
+        'Diabetes UK'
+      ];
 
-    done();
+      charities.forEach(function(charity){
+        migration.migrator.sequelize.query(
+          "INSERT INTO Charities (name, createdAt, updatedAt) values ('" + charity + "', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)"
+        );
+      });
+
+      done();
+    });
   },
 
   down: function(migration, DataTypes, done) {

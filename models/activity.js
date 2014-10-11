@@ -1,11 +1,19 @@
-"use strict";
-
 module.exports = function(sequelize, DataTypes) {
   var Activity = sequelize.define("Activity", {
     name: DataTypes.STRING,
     value: DataTypes.INTEGER
   }, {
-    classMethods: {}
+    classMethods: {
+      associate: function(db) {
+        Activity.belongsTo(
+          db.User,
+          {
+            as: 'User',
+            foreignKey: 'user_id'
+          }
+        )
+      }
+    }
   });
 
   return Activity;

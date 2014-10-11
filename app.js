@@ -12,6 +12,7 @@ var cors = require('cors');
 
 
 var activity    = require('./routes/activity'),
+    charity     = require('./routes/charity'),
     session     = require('./routes/session'),
     transaction = require('./routes/transaction'),
     user        = require('./routes/user');
@@ -76,6 +77,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use('/activity', activity);
+app.use('/charity', charity);
 app.use('/session', session);
 app.use('/transaction', transaction);
 app.use('/user', user);

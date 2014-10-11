@@ -30,6 +30,7 @@ router.post('/', function(req, res, next) {
 
 router.delete('/', function(req, res) {
   req.logout();
+  res.json({});
 });
 
 module.exports = router;

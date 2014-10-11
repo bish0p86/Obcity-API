@@ -10,6 +10,12 @@ module.exports = {
           primaryKey: true,
           autoIncrement: true
         },
+        user_id: {
+          type: DataTypes.INTEGER
+        },
+        charity_id: {
+          type: DataTypes.INTEGER
+        },
         duration: {
           type: DataTypes.STRING
         },

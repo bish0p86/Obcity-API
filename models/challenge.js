@@ -1,11 +1,27 @@
-"use strict";
-
 module.exports = function(sequelize, DataTypes) {
-  var Activity = sequelize.define("Challenge", {
-    duration: DataTypes.STRING
+  var Challenge = sequelize.define("Challenge", {
+    duration: DataTypes.STRING,
   }, {
-    classMethods: {}
+    classMethods: {
+      associate: function(db) {
+        Challenge.belongsTo(
+          db.User,
+          {
+            as: 'Charity',
+            foreignKey: 'charity_id'
+          }
+        );
+
+        Challenge.belongsTo(
+          db.User,
+          {
+            as: 'User',
+            foreignKey: 'user_id'
+          }
+        );
+      }
+    }
   });
 
-  return Activity;
+  return Challenge;
 };
