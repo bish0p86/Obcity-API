@@ -3,7 +3,7 @@
 module.exports = {
   up: function(migration, DataTypes, done) {
     migration.createTable(
-      'user',
+      'Users',
       {
         id: {
           type: DataTypes.INTEGER,
@@ -11,6 +11,9 @@ module.exports = {
           autoIncrement: true
         },
         username: {
+          type: DataTypes.STRING
+        },
+        password: {
           type: DataTypes.STRING
         },
         charity: {
@@ -22,10 +25,6 @@ module.exports = {
         updatedAt: {
           type: DataTypes.DATE
         }
-      },
-      {
-        engine: 'MYISAM',
-        charset: 'latin1'
       }
     );
 
@@ -33,7 +32,7 @@ module.exports = {
   },
 
   down: function(migration, DataTypes, done) {
-    migration.dropTable('user');
+    migration.dropTable('Users');
     done();
   }
 };

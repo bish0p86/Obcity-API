@@ -3,7 +3,7 @@
 module.exports = {
   up: function(migration, DataTypes, done) {
     migration.createTable(
-      'activity',
+      'Activities',
       {
         id: {
           type: DataTypes.INTEGER,
@@ -22,10 +22,6 @@ module.exports = {
         updatedAt: {
           type: DataTypes.DATE
         }
-      },
-      {
-        engine: 'MYISAM',
-        charset: 'latin1'
       }
     );
 
@@ -33,7 +29,7 @@ module.exports = {
   },
 
   down: function(migration, DataTypes, done) {
-    migration.dropTable('activity');
+    migration.dropTable('Activities');
     done();
   }
 };

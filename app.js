@@ -3,6 +3,7 @@ var path = require('path');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var multer  = require('multer');
 
 var passport = require('passport'),
     LocalStrategy = require('passport-local');
@@ -19,7 +20,11 @@ var models = require('./models');
 
 var app = express();
 
+app.set('views', __dirname + '/views');
+app.set('view engine', 'jade');
+
 app.use(logger('dev'));
+app.use(multer());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -27,10 +32,10 @@ app.use(cors({
   origin: '*'
 }));
 
-app.use('/', activity);
-app.use('/', session);
-app.use('/', transaction);
-app.use('/', user);
+app.use('/activity', activity);
+app.use('/session', session);
+app.use('/transaction', transaction);
+app.use('/user', user);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
