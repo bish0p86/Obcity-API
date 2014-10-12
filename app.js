@@ -11,11 +11,15 @@ var passport = require('passport'),
 
 var paypal = require('paypal-rest-sdk');
 
+var host   = 'obcity.herokuapp.com',
+    client = 'localhost:8100',
+    port   = process.env.PORT || 5000;
+
 paypal.configure({
   mode: 'sandbox',
   client_id: 'AYJ_TxD7MIHO7BuPioRfd-pQitsGS_9-kL_kQvB8N0x61sN6S0uBymaCu9rg',
   client_secret: 'EK_6pBD9MHA6vMoe2OwcQ6aR7cnbe_gvhXuHXjAA7bV0JRbe7im9Iy-XcgO8',
-  openid_redirect_uri: 'http://obcity.herokuapp.com/transaction/authorized',
+  openid_redirect_uri: 'http://' + host + 'transaction/authorized',
 });
 
 var cors = require('cors');
@@ -46,7 +50,7 @@ app.use(cookieSession({
   keys: ['6346dfc23b5018f5421d27116d657534']
 }));
 app.use(cors({
-  origin: 'http://localhost:8100',
+  origin: 'http://' + client,
   credentials: true
 }));
 
@@ -133,15 +137,6 @@ app.use(function(err, req, res, next) {
     });
 });
 
-var port = 8888;
-
-//console.log('Server listening on port ' + port);
-
-//app.set(process.env.PORT || port);
-
-app.set('port', (process.env.PORT || 5000))
-
-
-app.listen(app.get('port'), function() {
+app.listen(port, function() {
   console.log("Node app is running at localhost:" + app.get('port'))
 })
