@@ -9,6 +9,15 @@ var multer  = require('multer');
 var passport = require('passport'),
     LocalStrategy = require('passport-local');
 
+var paypal = require('paypal-rest-sdk');
+
+paypal.configure({
+  mode: 'sandbox',
+  openid_client_id: 'AYJ_TxD7MIHO7BuPioRfd-pQitsGS_9-kL_kQvB8N0x61sN6S0uBymaCu9rg',
+  openid_client_secret: 'EK_6pBD9MHA6vMoe2OwcQ6aR7cnbe_gvhXuHXjAA7bV0JRbe7im9Iy-XcgO8',
+  openid_redirect_uri: 'http://localhost:8888/transaction/authorized',
+});
+
 var cors = require('cors');
 
 
