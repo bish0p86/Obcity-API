@@ -36,7 +36,8 @@ app.use(cookieSession({
   keys: ['6346dfc23b5018f5421d27116d657534']
 }));
 app.use(cors({
-  origin: '*'
+  origin: '*',
+  credentials: true
 }));
 
 
