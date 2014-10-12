@@ -15,7 +15,7 @@ paypal.configure({
   mode: 'sandbox',
   client_id: 'AYJ_TxD7MIHO7BuPioRfd-pQitsGS_9-kL_kQvB8N0x61sN6S0uBymaCu9rg',
   client_secret: 'EK_6pBD9MHA6vMoe2OwcQ6aR7cnbe_gvhXuHXjAA7bV0JRbe7im9Iy-XcgO8',
-  redirect_uri: 'http://localhost:8888/transaction/authorized',
+  openid_redirect_uri: 'http://localhost:8888/transaction/authorized',
 });
 
 var cors = require('cors');

@@ -14,6 +14,10 @@ module.exports = {
           type: DataTypes.INTEGER,
           allowNull: false
         },
+        challenge_id: {
+          type: DataTypes.INTEGER,
+          allowNull: false
+        },
         value: {
           type: DataTypes.STRING,
           allowNull: false

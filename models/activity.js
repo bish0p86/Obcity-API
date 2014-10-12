@@ -11,6 +11,14 @@ module.exports = function(sequelize, DataTypes) {
     classMethods: {
       associate: function(db) {
         Activity.belongsTo(
+          db.Challenge,
+          {
+            as: 'Challenge',
+            foreignKey: 'challenge_id'
+          }
+        );
+
+        Activity.belongsTo(
           db.User,
           {
             as: 'User',

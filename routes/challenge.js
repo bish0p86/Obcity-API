@@ -4,9 +4,17 @@ var router = express.Router();
 var Challenge = require('../models').Challenge;
 var Charity   = require('../models').Charity;
 
+router.get('/', function(req, res, next){
+  Challenge.findAll({where: { user_id: req.user.id }}).then(onFindAll);
+
+  function onFindAll(challenges) {
+    return res.json(challenges);
+  }
+});
+
 router.post('/', function(req, res, next) {
   Charity.find({
-    where: {name: req.charity}
+    where: {name: req.body.charity}
   }).then(onFind, onError);
 
   function onError(err) {
@@ -14,8 +22,18 @@ router.post('/', function(req, res, next) {
   }
 
   function onFind(charity) {
+    if (!charity) {
+      res.status(404);
+
+      return res.json({
+        errors: [
+          'Charity not found'
+        ]
+      });
+    }
+
     var data = req.body;
-        data.User = req.user;
+        data.user_id = req.user.id;
 
     data.charity_id = charity.id;
 

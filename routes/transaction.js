@@ -4,6 +4,7 @@ var paypal = require('paypal-rest-sdk');
 
 var router = express.Router();
 
+var User = require('../models').User;
 var Challenge = require('../models').Challenge;
 var Transaction = require('../models').Transaction;
 
@@ -35,17 +36,20 @@ router.get('/authorized', function(req, res, next) {
     if (err) {
       onError(err);
     } else {
-      var user = User.find(req.user.id);
-
-      user.updateAttributes({
-        access_token: ret.access_token,
-        refresh_token: ret.refresh_token
-      }).then(onUpdate, onError);
+      User.update(
+        {
+          accessToken: ret.access_token,
+          refreshToken: ret.refresh_token
+        },
+        {
+          where: { id: req.user.id }
+        }
+      ).then(onUpdate, onError);
     }
   }
 
   function onUpdate(user) {
-    res.json({});
+    res.json(user);
   }
 });
 
@@ -73,14 +77,18 @@ router.get('/process', function(req, res, next) {
         ]
     };
 
-    paypal.payment.create(data, onPayPalCreate);
+    var config = {
+      refresh_token: user.refreshToken
+    };
+
+    paypal.payment.create(data, config, onPayPalCreate);
   }
 
   function onPayPalCreate(error, payment) {
     console.log(payment);
 
     Transaction.create({
-
+      processed: true
     }).then(onTransactionCreate)
   }
 
