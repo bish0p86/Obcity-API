@@ -12,6 +12,10 @@ router.get('/', function(req, res, next){
   }
 });
 
+router.options('/', function(req, res) {
+  res.json({});
+});
+
 router.post('/', function(req, res, next) {
   Charity.find({
     where: {name: req.body.charity}

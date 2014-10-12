@@ -50,7 +50,7 @@ router.get('/authorized', function(req, res, next) {
   }
 
   function onUpdate() {
-    res.json({});
+    res.redirect('http://localhost:8100/#/app/setup-completion');
   }
 });
 
