@@ -48,19 +48,37 @@ router.get('/authorized', function(req, res, next) {
     }
   }
 
-  function onUpdate(user) {
-    res.json(user);
+  function onUpdate() {
+    res.json({});
   }
 });
 
 router.get('/process', function(req, res, next) {
-  Challenge.findAll({ where: {processed: false} }).then(onFindAll);
+  var user;
+
+  User.find(req.user.id).then(onFind).then(onFind, onError);
+
+  function onError(err) {
+    if (err) {
+      res.status(500);
+      res.json(err);
+    }
+  }
+
+  function onFind(data) {
+    user = data;
+
+    Challenge.findAll(
+      { where: {processed: false} }
+    ).then(onFindAll, onError);
+  }
 
   function onFindAll(challenges) {
     challenges.forEach(onEach);
   }
 
   function onEach(challenge) {
+    console.log(challenge.Activities);
     var data = {
         "intent": "sale",
         "payer": {
@@ -70,18 +88,19 @@ router.get('/process', function(req, res, next) {
           {
             "amount": {
               "currency": "GBP",
-              "total": "10.00"
+              "total": challenge.calculatePenality(challenge)
             },
             "description": "OBCity"
           }
         ]
     };
 
-    var config = {
-      refresh_token: user.refreshToken
-    };
-
-    paypal.payment.create(data, config, onPayPalCreate);
+// console.log(user.refreshToken);
+    // var config = {
+    //   refresh_token: user.refreshToken
+    // };
+// console.log(config);
+    // paypal.payment.create(data, config, onPayPalCreate);
   }
 
   function onPayPalCreate(error, payment) {

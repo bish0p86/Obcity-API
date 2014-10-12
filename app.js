@@ -21,7 +21,8 @@ paypal.configure({
 var cors = require('cors');
 
 
-var activity    = require('./routes/activity'),
+var index       = require('./routes/index'),
+    activity    = require('./routes/activity'),
     challenge   = require('./routes/challenge'),
     charity     = require('./routes/charity'),
     session     = require('./routes/session'),
@@ -92,6 +93,7 @@ passport.use(new LocalStrategy(
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use('/', index);
 app.use('/activity', activity);
 app.use('/challenge', challenge);
 app.use('/charity', charity);

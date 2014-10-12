@@ -46,11 +46,18 @@ module.exports = function(sequelize, DataTypes) {
             foreignKey: 'user_id'
           }
         );
+
+        Challenge.hasMany(
+          db.Activity,
+          {
+            as: 'Activities'
+          }
+        )
       }
     },
 
     instanceMethods: {
-      calculateTotal: function() {
+      calculatePenality: function(activities) {
 
       }
     }
