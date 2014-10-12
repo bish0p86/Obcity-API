@@ -23,6 +23,12 @@ module.exports = {
           type: DataTypes.TEXT,
           allowNull: false
         },
+        accessToken: {
+          type: DataTypes.TEXT
+        },
+        refreshToken: {
+          type: DataTypes.TEXT
+        },
         createdAt: {
           type: DataTypes.DATE,
           allowNull: false

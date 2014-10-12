@@ -13,9 +13,9 @@ var paypal = require('paypal-rest-sdk');
 
 paypal.configure({
   mode: 'sandbox',
-  openid_client_id: 'AYJ_TxD7MIHO7BuPioRfd-pQitsGS_9-kL_kQvB8N0x61sN6S0uBymaCu9rg',
-  openid_client_secret: 'EK_6pBD9MHA6vMoe2OwcQ6aR7cnbe_gvhXuHXjAA7bV0JRbe7im9Iy-XcgO8',
-  openid_redirect_uri: 'http://localhost:8888/transaction/authorized',
+  client_id: 'AYJ_TxD7MIHO7BuPioRfd-pQitsGS_9-kL_kQvB8N0x61sN6S0uBymaCu9rg',
+  client_secret: 'EK_6pBD9MHA6vMoe2OwcQ6aR7cnbe_gvhXuHXjAA7bV0JRbe7im9Iy-XcgO8',
+  redirect_uri: 'http://localhost:8888/transaction/authorized',
 });
 
 var cors = require('cors');
@@ -45,7 +45,7 @@ app.use(cookieSession({
   keys: ['6346dfc23b5018f5421d27116d657534']
 }));
 app.use(cors({
-  origin: '*',
+  origin: 'http://localhost:8100',
   credentials: true
 }));
 

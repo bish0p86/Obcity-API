@@ -40,6 +40,12 @@ module.exports = function(sequelize, DataTypes) {
         notEmpty: true
       }
     },
+    accessToken: {
+      type: DataTypes.TEXT
+    },
+    refreshToken: {
+      type: DataTypes.TEXT
+    },
     createdAt: {
       type: DataTypes.DATE,
       validate: {

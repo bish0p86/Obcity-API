@@ -23,56 +23,29 @@ router.get('/authorize', function(req, res, next) {
 
 router.get('/authorized', function(req, res, next) {
   var authorization_code = req.param('code');
-  var refresh_token,
-      access_token;
 
   paypal.openIdConnect.tokeninfo.create(authorization_code, onCreate);
 
+  function onError(err) {
+    res.status(500);
+    res.json(err);
+  }
+
   function onCreate(err, ret) {
-    console.log(ret);
-
     if (err) {
-      res.status(500);
-      res.json(err);
+      onError(err);
     } else {
-      refresh_token = ret.refresh_token;
-      access_token = ret.access_token;
+      var user = User.find(req.user.id);
 
-      var data = {
-        "intent": "sale",
-        "payer": {
-          "payment_method": "paypal"
-        },
-        "redirect_urls": {
-          "return_url": "http://return.url",
-          "cancel_url": "http://cancel.url"
-        },
-        "transactions": [{
-          "amount": {
-            "currency": "USD",
-            "total": "1.00"
-          },
-          "description": "This is the payment description."
-        }]
-      };
-
-      var config = {
-        "refresh_token": refresh_token,
-        "access_token": access_token,
-        "authorization_code": authorization_code
-      };
-
-      console.log(config);
-
-      paypal.payment.create(data, config, function (error, payment) {
-        if (error) {
-          res.status(500);
-          res.json(error);
-        } else {
-          res.json(payment);
-        }
-      });
+      user.updateAttributes({
+        access_token: ret.access_token,
+        refresh_token: ret.refresh_token
+      }).then(onUpdate, onError);
     }
+  }
+
+  function onUpdate(user) {
+    res.json({});
   }
 });
 
