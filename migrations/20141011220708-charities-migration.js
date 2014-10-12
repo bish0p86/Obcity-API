@@ -8,16 +8,20 @@ module.exports = {
         id: {
           type: DataTypes.INTEGER,
           primaryKey: true,
-          autoIncrement: true
+          autoIncrement: true,
+          allowNull: false
         },
         name: {
-          type: DataTypes.STRING
+          type: DataTypes.STRING,
+          allowNull: false
         },
         createdAt: {
-          type: DataTypes.DATE
+          type: DataTypes.DATE,
+          allowNull: false
         },
         updatedAt: {
-          type: DataTypes.DATE
+          type: DataTypes.DATE,
+          allowNull: false
         }
       }
     ).then(function () {
@@ -34,6 +38,16 @@ module.exports = {
 
       done();
     });
+
+
+    migration.addIndex(
+      'Charities',
+      ['name'],
+      {
+        indexName: 'NameIndex',
+        indicesType: 'UNIQUE'
+      }
+    );
   },
 
   down: function(migration, DataTypes, done) {

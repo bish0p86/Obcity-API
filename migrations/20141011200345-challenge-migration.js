@@ -8,22 +8,36 @@ module.exports = {
         id: {
           type: DataTypes.INTEGER,
           primaryKey: true,
-          autoIncrement: true
+          autoIncrement: true,
+          allowNull: false
         },
         user_id: {
-          type: DataTypes.INTEGER
+          type: DataTypes.INTEGER,
+          allowNull: false
         },
         charity_id: {
-          type: DataTypes.INTEGER
+          type: DataTypes.INTEGER,
+          allowNull: false
         },
-        finishAt: {
-          type: DataTypes.DATE
+        goal: {
+          type: DataTypes.STRING,
+          allowNull: false
+        },
+        penality: {
+          type: DataTypes.STRING,
+          allowNull: false
+        },
+        duration: {
+          type: DataTypes.DATE,
+          allowNull: false
         },
         createdAt: {
-          type: DataTypes.DATE
+          type: DataTypes.DATE,
+          allowNull: false
         },
         updatedAt: {
-          type: DataTypes.DATE
+          type: DataTypes.DATE,
+          allowNull: false
         }
       }
     );

@@ -1,6 +1,11 @@
 module.exports = function(sequelize, DataTypes) {
   var Charity = sequelize.define('Charity', {
-    name: DataTypes.STRING
+    name: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: true,
+      }
+    }
   }, {
     classMethods: {}
   });

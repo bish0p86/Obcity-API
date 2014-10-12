@@ -8,20 +8,38 @@ module.exports = {
         id: {
           type: DataTypes.INTEGER,
           primaryKey: true,
-          autoIncrement: true
+          autoIncrement: true,
+          allowNull: false
         },
         username: {
-          type: DataTypes.STRING
+          type: DataTypes.STRING,
+          allowNull: false
         },
         password: {
-          type: DataTypes.STRING
+          type: DataTypes.TEXT,
+          allowNull: false
+        },
+        salt: {
+          type: DataTypes.TEXT,
+          allowNull: false
         },
         createdAt: {
-          type: DataTypes.DATE
+          type: DataTypes.DATE,
+          allowNull: false
         },
         updatedAt: {
-          type: DataTypes.DATE
+          type: DataTypes.DATE,
+          allowNull: false
         }
+      }
+    );
+
+    migration.addIndex(
+      'Users',
+      ['username'],
+      {
+        indexName: 'UsernameIndex',
+        indicesType: 'UNIQUE'
       }
     );
 

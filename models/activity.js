@@ -1,6 +1,12 @@
 module.exports = function(sequelize, DataTypes) {
   var Activity = sequelize.define("Activity", {
-    value: DataTypes.INTEGER
+    value: {
+      type: DataTypes.INTEGER,
+      validate: {
+        isNumeric: true,
+        notEmpty: true
+      }
+    }
   }, {
     classMethods: {
       associate: function(db) {

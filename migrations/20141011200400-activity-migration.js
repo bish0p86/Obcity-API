@@ -11,16 +11,20 @@ module.exports = {
           autoIncrement: true
         },
         user_id: {
-          type: DataTypes.INTEGER
+          type: DataTypes.INTEGER,
+          allowNull: false
         },
         value: {
-          type: DataTypes.STRING
+          type: DataTypes.STRING,
+          allowNull: false
         },
         createdAt: {
-          type: DataTypes.DATE
+          type: DataTypes.DATE,
+          allowNull: false
         },
         updatedAt: {
-          type: DataTypes.DATE
+          type: DataTypes.DATE,
+          allowNull: false
         }
       }
     );
