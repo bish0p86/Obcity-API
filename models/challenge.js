@@ -21,6 +21,13 @@ module.exports = function(sequelize, DataTypes) {
         notEmpty: true,
       }
     },
+    processed: {
+      type: DataTypes.BOOLEAN,
+      validate: {
+        isIn: [true, false],
+        notEmpty: true,
+      }
+    },
   }, {
     classMethods: {
       associate: function(db) {
@@ -39,6 +46,12 @@ module.exports = function(sequelize, DataTypes) {
             foreignKey: 'user_id'
           }
         );
+      }
+    },
+
+    instanceMethods: {
+      calculateTotal: function() {
+
       }
     }
   });

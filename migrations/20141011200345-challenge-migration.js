@@ -31,6 +31,11 @@ module.exports = {
           type: DataTypes.DATE,
           allowNull: false
         },
+        processed: {
+          type: DataTypes.BOOLEAN
+          allowNull: false,
+          defaultValue: false
+        }
         createdAt: {
           type: DataTypes.DATE,
           allowNull: false
