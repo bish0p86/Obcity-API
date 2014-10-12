@@ -2,6 +2,7 @@ var express = require('express');
 var path = require('path');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
+var cookieSession = require('cookie-session');
 var bodyParser = require('body-parser');
 var multer  = require('multer');
 
@@ -31,6 +32,9 @@ app.use(multer());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(cookieSession({
+  keys: ['6346dfc23b5018f5421d27116d657534']
+}));
 app.use(cors({
   origin: '*'
 }));
@@ -45,7 +49,7 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(user, done) {
-  done(null, JSON.parse(user));
+  done(null, user);
 });
 
 passport.use(new LocalStrategy(
