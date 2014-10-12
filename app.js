@@ -44,6 +44,7 @@ passport.serializeUser(function(user, done) {
   user = user.toJSON();
 
   delete user.password;
+  delete user.salt;
 
   done(null, user);
 });
