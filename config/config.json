@@ -8,7 +8,12 @@
     "dialect": "sqlite"
   },
   "production": {
-    "storage": "tmp/production.sqlite",
-    "dialect": "sqlite"
+    "dialect": "postgres",
+    "protocol": "postgres",
+    "port"  : "5432",
+    "name" : "d1t0u43fcankb3",
+    "username":"vyqjbbrrxzivpl",
+    "password": "b7PlPZDhm9bVZlz6JjT-AiwNgG",
+    "host" : "ec2-54-228-227-236.eu-west-1.compute.amazonaws.com"
   }
 }
