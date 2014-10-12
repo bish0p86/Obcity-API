@@ -137,4 +137,6 @@ var port = 8888;
 
 console.log('Server listening on port ' + port);
 
-app.listen(process.env.PORT || port);
+app.set(process.env.PORT || port);
+
+app.listen();
