@@ -32,7 +32,7 @@ module.exports = {
 
       charities.forEach(function(charity){
         migration.migrator.sequelize.query(
-          "INSERT INTO Charities (name, createdAt, updatedAt) values ('" + charity + "', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)"
+          'INSERT INTO "Charities" ("name", "createdAt", "updatedAt") values (\'' + charity + '\', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)'
         );
       });
     }).then(function(){
