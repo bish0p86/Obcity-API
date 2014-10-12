@@ -5,6 +5,7 @@ var paypal = require('paypal-rest-sdk');
 var router = express.Router();
 
 var User = require('../models').User;
+var Activity = require('../models').Activity;
 var Challenge = require('../models').Challenge;
 var Transaction = require('../models').Transaction;
 
@@ -69,7 +70,9 @@ router.get('/process', function(req, res, next) {
     user = data;
 
     Challenge.findAll(
-      { where: {processed: false} }
+      {
+        where: {processed: false}
+      }
     ).then(onFindAll, onError);
   }
 
@@ -78,22 +81,26 @@ router.get('/process', function(req, res, next) {
   }
 
   function onEach(challenge) {
-    console.log(challenge.Activities);
-    var data = {
-        "intent": "sale",
-        "payer": {
-          "payment_method": "paypal"
-        },
-        "transactions": [
-          {
-            "amount": {
-              "currency": "GBP",
-              "total": challenge.calculatePenality(challenge)
-            },
-            "description": "OBCity"
-          }
-        ]
-    };
+    Activity.findAll(
+      { where: { challenge_id: challenge.id } }
+    ).then(function(activities) {
+      console.log(activities.length);
+    })
+    // var data = {
+    //     "intent": "sale",
+    //     "payer": {
+    //       "payment_method": "paypal"
+    //     },
+    //     "transactions": [
+    //       {
+    //         "amount": {
+    //           "currency": "GBP",
+    //           "total": challenge.calculatePenality(challenge)
+    //         },
+    //         "description": "OBCity"
+    //       }
+    //     ]
+    // };
 
 // console.log(user.refreshToken);
     // var config = {
