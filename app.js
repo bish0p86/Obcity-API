@@ -135,8 +135,13 @@ app.use(function(err, req, res, next) {
 
 var port = 8888;
 
-console.log('Server listening on port ' + port);
+//console.log('Server listening on port ' + port);
 
-app.set(process.env.PORT || port);
+//app.set(process.env.PORT || port);
 
-app.listen();
+app.set('port', (process.env.PORT || 5000))
+
+
+app.listen(app.get('port'), function() {
+  console.log("Node app is running at localhost:" + app.get('port'))
+})
