@@ -60,7 +60,7 @@ passport.use(new LocalStrategy(
     passReqToCallback: true
   },
   function(req, username, password, done) {
-    User.findOne({ username: username }).then(function (user) {
+    User.find({ where: {username: username} }).then(function (user) {
       if (!user) {
         return done(null, false);
       }

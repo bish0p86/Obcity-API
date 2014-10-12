@@ -1,6 +1,14 @@
 var CryptoJS = require("crypto-js");
 
 module.exports = function(sequelize, DataTypes) {
+  function generatePassword(password, salt) {
+    return CryptoJS.PBKDF2(password, salt, { keySize: 128/32 }).toString();
+  }
+
+  function generateSalt() {
+    return CryptoJS.lib.WordArray.random(128/8).toString();
+  }
+
   var User = sequelize.define("User", {
     username: {
       type: DataTypes.STRING,
@@ -49,8 +57,11 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     classMethods: {},
     instanceMethods: {
-      verifyPassword: function(password) {
-        return true;
+      verifyPassword: function(value) {
+        var salt     = this.getDataValue('salt'),
+            password = this.getDataValue('password');
+
+        return generatePassword(value, salt) === password;
       }
     },
 
@@ -59,13 +70,13 @@ module.exports = function(sequelize, DataTypes) {
         var salt = this.getDataValue('salt');
 
         if (salt === undefined) {
-          salt = CryptoJS.lib.WordArray.random(128/8);
+          salt = generateSalt();
         }
 
-        var password = CryptoJS.PBKDF2(value, salt, { keySize: 128/32 });
+        var password = generatePassword(value, salt);
 
-        this.setDataValue('salt', salt.toString());
-        this.setDataValue('password', password.toString());
+        this.setDataValue('salt', salt);
+        this.setDataValue('password', password);
       }
     }
   });
