@@ -5,7 +5,9 @@ var Challenge = require('../models').Challenge;
 var Charity   = require('../models').Charity;
 
 router.post('/', function(req, res, next) {
-  Charity.findOne({name: req.charity}).then(onFind, onError);
+  Charity.find({
+    where: {name: req.charity}
+  }).then(onFind, onError);
 
   function onError(err) {
     next(err);

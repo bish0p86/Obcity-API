@@ -6,6 +6,17 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       validate: {
         notEmpty: true,
+        isUnique: function(value, next) {
+          User.find({ where: { username: value } }).then(function(user) {
+            if (user) {
+              next('Username already in use!');
+            } else {
+              next();
+            }
+          }, function(err) {
+            next(err);
+          });
+        }
       },
       unique: true
     },
