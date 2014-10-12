@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var cookieSession = require('cookie-session');
 var bodyParser = require('body-parser');
 var multer  = require('multer');
+var process = require('process');
 
 var passport = require('passport'),
     LocalStrategy = require('passport-local');
