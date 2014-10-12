@@ -38,18 +38,19 @@ module.exports = {
           allowNull: false
         }
       }
-    );
+    ).then(function(){
+      migration.addIndex(
+        'Users',
+        ['username'],
+        {
+          indexName: 'UsernameIndex',
+          indicesType: 'UNIQUE'
+        }
+      );
 
-    migration.addIndex(
-      'Users',
-      ['username'],
-      {
-        indexName: 'UsernameIndex',
-        indicesType: 'UNIQUE'
-      }
-    );
+      done();
+    });
 
-    done();
   },
 
   down: function(migration, DataTypes, done) {

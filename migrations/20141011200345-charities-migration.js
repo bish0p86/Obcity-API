@@ -35,19 +35,18 @@ module.exports = {
           "INSERT INTO Charities (name, createdAt, updatedAt) values ('" + charity + "', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)"
         );
       });
+    }).then(function(){
+      migration.addIndex(
+        'Charities',
+        ['name'],
+        {
+          indexName: 'NameIndex',
+          indicesType: 'UNIQUE'
+        }
+      );
 
       done();
-    });
-
-
-    migration.addIndex(
-      'Charities',
-      ['name'],
-      {
-        indexName: 'NameIndex',
-        indicesType: 'UNIQUE'
-      }
-    );
+    })
   },
 
   down: function(migration, DataTypes, done) {

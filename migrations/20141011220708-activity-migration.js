@@ -31,9 +31,9 @@ module.exports = {
           allowNull: false
         }
       }
-    );
-
-    done();
+    ).then(function(){
+      done();
+    })
   },
 
   down: function(migration, DataTypes, done) {
